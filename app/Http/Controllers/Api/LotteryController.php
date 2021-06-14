@@ -147,12 +147,10 @@ class LotteryController extends Controller
         if(in_array($name,['yfks','sfks','wfks'])) $name = 'yfks';
         if(in_array($name,['sfssc','yfssc','wfssc'])) $name = 'yfssc';
         if(in_array($name,['yfkuaiche','sfkc','wfkc'])) $name = 'yfkuaiche';
-        if(in_array($name,['sflhc','yflh','	wflhc'])) $name = 'yflh';
+        if(in_array($name,['sflhc','yflhc','wflhc'])) $name = 'yflhc';
         $lottery = Cache::rememberForever('rule:' . $name, function ()use($name) {
             return Lottery::Name($name)->first();
         });
-
-
         return LotteryRuleGroupResource::collection($lottery->group)->additional(['code' => 0,'message' => 'ok']);
     }
 
