@@ -95,19 +95,14 @@ class LotteryController extends AdminController
                 ->accept('jpg,png,jpeg', 'image/*');
             $form->select('type')->options(config('lottery'))->required()->default('k3');
             $form->text('title')->required();
+            $form->select('status')->options([1 => '开启', 0 => '关闭'])->default(1)->required();
             $form->text('name')->required()->placeholder('彩种标识:3fks');
             $form->number('time')->required()
                 ->placeholder('封盘时间')
                 ->help('列:输入5，就是距离开奖时间前 5秒封盘，停止下注')->min(5);
             $form->number('Issue')->required()->min(1);
             $form->editor('desc');
-            $form->hidden('status')
-                ->customFormat(function ($v) {
-                    return $v ;
-                })
-                ->saving(function ($v) {
-                    return $v ;
-                });
+
             $form->select('expect_time')->required()->options([
                 1 => '1分钟一期',
                 3 => '3分钟一期',

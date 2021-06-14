@@ -10,6 +10,7 @@ return [
         'title' => '彩种名称',
         'name' => '彩种标示(唯一值)',
         'time' => '停止投注间隔',
+        'status' => '状态',
         'Issue' => '期数',
         'desc' => '彩种简介',
         'expect_time' => '开奖时间',
