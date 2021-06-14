@@ -43,6 +43,7 @@ class lhc extends Command
         $code = range(1,49);
         shuffle($code);
         $code = array_slice($code,0,7);
+        $code = implode(',', $code);
 
         $lottery_record = LotteryRecord::where('lottery_time','<=',time())->where('lottery_id',$id)->orderby('id','desc')->first();
         // $lottery_record = LotteryRecord::where('issue','202106071099')->where('lottery_id',1)->orderby('id','desc')->first();
