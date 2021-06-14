@@ -75,7 +75,13 @@ class LotteryRuleController extends AdminController
     {
         return Form::make(new LotteryRule(), function (Form $form) {
             $form->display('id');
+            $form->select('lottery_id')->options(Lottery::get()->pluck('title', 'id'))->required();
+            $form->text('rule_name')->required();
+            $form->text('rule_code')->required();
+            $form->text('rate_code')->required();
+            $form->text('lottery_rule_group_id');
             $form->text('rate')->required();
+
             $form->select('status')->options(['1' => '开启', 2=>'关闭'])->default(1)->required();
             $form->display('created_at');
             $form->display('updated_at');
@@ -83,7 +89,7 @@ class LotteryRuleController extends AdminController
                 $id = $form->getKey();
                 if($id)
                 {
-                    $res = Cache::forget('rule:'.$id);
+                    Cache::forget('rule:'.$id);
                 }
             });
         });
