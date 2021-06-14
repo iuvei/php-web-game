@@ -26,6 +26,7 @@ class GameController extends AdminController
             $grid->column('image')->image('', 50, 50);
             $grid->column('code');
             $grid->column('status')->using(['1' => '开启', 2 => '关闭'])->label([1 => 'success', 2 => 'danger']);
+
             $grid->column('sort');
             $grid->column('is_recommend');
             $grid->column('created_at');
@@ -35,6 +36,7 @@ class GameController extends AdminController
                 $filter->equal('id');
                 $filter->equal('status')->select([1 => '开启', 2 => '关闭']);
                 $filter->equal('game_class_id')->select(GameClass::get()->pluck('title', 'id'));
+
 
             });
         });

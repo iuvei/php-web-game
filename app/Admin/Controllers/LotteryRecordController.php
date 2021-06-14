@@ -138,10 +138,10 @@ class LotteryRecordController extends AdminController
                     return $form->responseValidationMessages('preset', '设置错误，请重新选择');
                 }
 
-                if(time() >= $form->model()->lottery_time)
-                {
-                    return $form->responseValidationMessages('preset', '已经开奖，不能修改开奖号码');
-                }
+                // if(time() >= $form->model()->lottery_time)
+                // {
+                //     return $form->responseValidationMessages('preset', '已经开奖，不能修改开奖号码');
+                // }
                 $form->code = $res;
 
             });
