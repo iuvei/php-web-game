@@ -5,6 +5,7 @@ namespace App\Console;
 use App\Console\Commands\kuai_san;
 use App\Console\Commands\kuai_che;
 use App\Console\Commands\ssc;
+use App\Console\Commands\statistics;
 use App\Console\Commands\create_lottery_record;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
