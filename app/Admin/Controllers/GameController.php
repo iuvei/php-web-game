@@ -18,13 +18,14 @@ class GameController extends AdminController
      */
     protected function grid()
     {
-        return Grid::make(new Game(), function (Grid $grid) {
-            $grid->column('id')->sortable();
-            $grid->column('game_class_id');
+        return Grid::make(new Game(['gameClass']), function (Grid $grid) {
+            $grid->model()->orderByDesc('id');
+            $grid->column('id');
+            $grid->column('gameClass.title', '游戏分类');
             $grid->column('name');
-            $grid->column('image')->image('', 50,50);
+            $grid->column('image')->image('', 50, 50);
             $grid->column('code');
-            $grid->column('status')->using(['1' => '正常', 2=>'禁用'])->label([1 => 'success', 2 => 'danger']);
+            $grid->column('status')->using(['1' => '开启', 2 => '关闭'])->label([1 => 'success', 2 => 'danger']);
             $grid->column('sort');
             $grid->column('is_recommend');
             $grid->column('created_at');
@@ -32,6 +33,8 @@ class GameController extends AdminController
 
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
+                $filter->equal('status')->select([1 => '开启', 2 => '关闭']);
+                $filter->equal('game_class_id')->select(GameClass::get()->pluck('title', 'id'));
 
             });
         });

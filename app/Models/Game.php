@@ -10,5 +10,9 @@ class Game extends Model
 {
 	use HasDateTimeFormatter;
     protected $table = 'game';
-    
+
+    public function gameClass()
+    {
+        return $this->belongsTo(GameClass::class);
+    }
 }
