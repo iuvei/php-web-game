@@ -25,7 +25,7 @@ class LotteryByRequest extends FormRequest
     {
         return [
             'user_id' => 'required|integer',
-            'lottery_id' => 'required|integer|exists:App\Models\Lottery,id',
+            'lottery_id' => 'required|integer',
             'lottery_record_id' => 'required|integer',
             'list.*.rule_id' => 'required|integer|exists:App\Models\LotteryRule,id',
             'list.*.rule_code' => 'required|exists:App\Models\LotteryRule,rule_code',

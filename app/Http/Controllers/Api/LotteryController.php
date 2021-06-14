@@ -23,7 +23,7 @@ class LotteryController extends Controller
 {
     public function getUser($id)
     {
-        $user = DB::connection('tiane')->table('cmf_user')->where('id',$id)->first();
+        $user = DB::connection('tiane')->table('cmf_user')->where('id', $id)->first();
         return $user;
     }
 
@@ -39,7 +39,7 @@ class LotteryController extends Controller
         return LotteryOrderResource::collection($lottery_order)->additional(['code' => 0, 'message' => 'ok']);
     }
 
-     /**
+    /**
      *  下注
      * @param Request $request
      */
@@ -47,17 +47,22 @@ class LotteryController extends Controller
     {
         $input = $request->all();
         $user = $this->getUser($input['user_id']);
-        if(!$user)
-        {
+        if (!$user) {
             return $this->jsonError('用户不存在');
         }
         $insert = [];
+        $lottery = Lottery::where('id', $input['lottery_id'])->where('status', 1)->first();
+
+        if (!$lottery) {
+            return $this->jsonError('彩种已关闭');
+        }
 
         $lottery_record = LotteryRecord::where('id', $input['lottery_record_id'])->first();
-
+        if (!$lottery_record) {
+            return $this->jsonError('彩种已关闭');
+        }
         // 判断是否过期
-        if( $lottery_record->lottery_time <= time())
-        {
+        if ($lottery_record->lottery_time <= time()) {
             return $this->jsonError('当前期已过期');
         }
 
@@ -66,15 +71,13 @@ class LotteryController extends Controller
         // 获取下注总金额
         $money = collect($list)->sum('money');
         // 判断用户金额
-        if($user->coin < $money)
-        {
-             return $this->jsonError('金额不足，请先去充值');
+        if ($user->coin < $money) {
+            return $this->jsonError('金额不足，请先去充值');
         }
 
-        foreach ($list as $k=>$v)
-        {
+        foreach ($list as $k => $v) {
             $rule = $v->rule_id;
-            $rule = Cache::rememberForever('rule:' . $rule, function ()use($rule) {
+            $rule = Cache::rememberForever('rule:' . $rule, function () use ($rule) {
                 return LotteryRule::with(['lotteryRuleGroup'])->where('id', $rule)->first();
             });
 
@@ -93,19 +96,18 @@ class LotteryController extends Controller
 
         }
 
-        DB::transaction(function ()use($insert,$user,$money)
-        {
+        DB::transaction(function () use ($insert, $user, $money) {
             $before_money = $user->coin;
-            $after_money = $user->coin-$money;
-            DB::connection('tiane')->table('cmf_user')->where('id',$user->id)->update(['coin' => $after_money]);
-            userAccountChange($user->id,3,$before_money,$money,$after_money,'彩票下注');
+            $after_money = $user->coin - $money;
+            DB::connection('tiane')->table('cmf_user')->where('id', $user->id)->update(['coin' => $after_money]);
+            userAccountChange($user->id, 3, $before_money, $money, $after_money, '彩票下注');
             LotteryOrder::insert($insert);
         });
 
         return response()->json([
-           'code' => 0,
-           'message' => '下注成功',
-           'money' => $user->coin - $money,
+            'code' => 0,
+            'message' => '下注成功',
+            'money' => $user->coin - $money,
         ]);
 
     }
@@ -118,12 +120,12 @@ class LotteryController extends Controller
     public function lotteryRecord(Request $request)
     {
 
-        $limit = $request->input('limit',10);
+        $limit = $request->input('limit', 10);
         $lottery_record = LotteryRecord::where('code', '!=', '')
-            ->where('lottery_id',$request->input('lottery_id'))
-            ->where('lottery_time','<=',time())
+            ->where('lottery_id', $request->input('lottery_id'))
+            ->where('lottery_time', '<=', time())
             ->orderby('id', 'desc')->simplePaginate($limit);
-        return LotteryRecordResource::collection($lottery_record)->additional(['code' => 0,'message' => 'ok']);
+        return LotteryRecordResource::collection($lottery_record)->additional(['code' => 0, 'message' => 'ok']);
     }
 
 
@@ -133,37 +135,36 @@ class LotteryController extends Controller
         $array = [];
         $array['code'] = 0;
         $array['message'] = 'ok';
-        foreach ($lottery as $v)
-        {
+        foreach ($lottery as $v) {
             $array['data'][$v->type][] = new LotteryResource($v);
         }
-       return $array;
+        return $array;
 
     }
 
     public function lotteryRule(LotteryTimePost $request)
     {
         $name = $request->get('name');
-        if(in_array($name,['yfks','sfks','wfks'])) $name = 'yfks';
-        if(in_array($name,['sfssc','yfssc','wfssc'])) $name = 'yfssc';
-        if(in_array($name,['yfkuaiche','sfkc','wfkc'])) $name = 'yfkuaiche';
-        if(in_array($name,['sflhc','yflhc','wflhc'])) $name = 'yflhc';
-        $lottery = Cache::rememberForever('rule:' . $name, function ()use($name) {
+
+        if (in_array($name, ['yfks', 'sfks', 'wfks'])) $name = 'yfks';
+        if (in_array($name, ['sfssc', 'yfssc', 'wfssc'])) $name = 'yfssc';
+        if (in_array($name, ['yfkuaiche', 'sfkc', 'wfkc'])) $name = 'yfkuaiche';
+        if (in_array($name, ['sflhc', 'yflhc', 'wflhc'])) $name = 'yflhc';
+        $lottery = Cache::rememberForever('rule:' . $name, function () use ($name) {
             return Lottery::Name($name)->first();
         });
-        return LotteryRuleGroupResource::collection($lottery->group)->additional(['code' => 0,'message' => 'ok']);
+        return LotteryRuleGroupResource::collection($lottery->group)->additional(['code' => 0, 'message' => 'ok']);
     }
 
     public function lotteryTime(LotteryTimePost $request)
     {
         $name = $request->get('name');
 
-        $lottery = Cache::rememberForever('rule:' . $name, function ()use($name) {
+        $lottery = Cache::rememberForever('rule:' . $name, function () use ($name) {
             return Lottery::Name($name)->first();
         });
 
-        if(!$lottery)
-        {
+        if (!$lottery) {
             return $this->jsonError('彩种标识错误');
         }
         $s = date('s');
