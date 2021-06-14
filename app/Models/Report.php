@@ -10,5 +10,7 @@ class Report extends Model
 {
 	use HasDateTimeFormatter;
     protected $table = 'report';
+
     protected $fillable = ['bottom_pour', 'bonus', 'deposit', 'withdrawal', 'rebates', 'activity','addtime'];
+
 }
