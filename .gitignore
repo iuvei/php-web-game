@@ -14,3 +14,4 @@ yarn-error.log
 /.idea
 config/database.php
 config/admin.php
+public/.user.ini
