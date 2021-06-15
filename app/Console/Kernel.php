@@ -7,6 +7,7 @@ use App\Console\Commands\kuai_che;
 use App\Console\Commands\lhc;
 use App\Console\Commands\ssc;
 use App\Console\Commands\statistics;
+use App\Console\Commands\users_report;
 use App\Console\Commands\create_lottery_record;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -38,6 +39,7 @@ class Kernel extends ConsoleKernel
         $schedule->command(create_lottery_record::class, [])->dailyAt('23:00');
         // 统计昨天报表
         $schedule->command(statistics::class, [2])->dailyAt('00:01');
+        $schedule->command(users_report::class, [2])->dailyAt('00:01');
 
         // 每3分钟执行
         $schedule->command(kuai_san::class, [5])->everyThreeMinutes();
