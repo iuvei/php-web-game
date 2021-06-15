@@ -78,7 +78,7 @@ class LotteryOrder extends Model
     public function scopeCreatedAt($query, $created_at)
     {
 
-        if ($created_at['start'] || $created_at['end']) {
+        if (!empty($created_at['start']) || !empty($created_at['end'])) {
             return $query->whereBetween('created_at', [$created_at['start'], $created_at['end']]);
         } else {
             return $query->where('created_at', '>=', Carbon::today()->toDateString());
