@@ -9,6 +9,7 @@ use Dcat\Admin\Grid;
 use App\Models\Lottery;
 use Dcat\Admin\Show;
 use Dcat\Admin\Http\Controllers\AdminController;
+use Dcat\Admin\Widgets\Card;
 
 class LotteryOrderController extends AdminController
 {
@@ -22,17 +23,25 @@ class LotteryOrderController extends AdminController
         return Grid::make(new LotteryOrder(['lottery'=>function($query){
             $query->get(['title']);
         }]), function (Grid $grid) {
+            $grid->header(function ()use($grid){
+                $res = \App\Models\LotteryOrder::conditionStatistics($grid);
+                $money = $res->money ?? 0;
+                $bonus = $res->bonus ?? 0;
+                $yk = $money - $bonus;
+                $content = "下注金额：{$money}元，奖金：{$bonus}元，盈亏：{$yk}元";
+                return new Card('根据搜索统计', $content);
+            });
             $grid->model()->orderBy('id', 'desc');
             $grid->column('id')->sortable();
             $grid->column('order_no');
             $grid->column('user_id');
             $grid->column('lottery.title','彩种');
-            $grid->column('rule_name','玩法');;
-            $grid->column('rate','赔率');
-            $grid->column('issue','期号');
-            $grid->column('code','开奖号码');
+            $grid->column('rule_name');;
+            $grid->column('rate');
+            $grid->column('issue');
+            $grid->column('code');
             $grid->column('money');
-            $grid->column('content','下注');
+            $grid->column('content');
             $grid->column('bonus');
             $grid->column('status')->using(['1' => '中奖', '2' => '待开奖', '3' => '已返点', '4' => '未中奖'])->label([
                 1 => 'success',
@@ -41,26 +50,24 @@ class LotteryOrderController extends AdminController
                 4 => 'danger',
             ]);
             $grid->column('created_at');
-            $grid->column('updated_at','开奖时间')->sortable();
+            $grid->column('updated_at')->sortable();
             $grid->addTableClass(['table-text-center']);
             $grid->disableCreateButton();
             $grid->disableViewButton();
             $grid->disableDeleteButton();
             $grid->filter(function (Grid\Filter $filter) {
-                $filter->equal('id');
                 $filter->panel();
                 $filter->equal('order_no');
-                $filter->equal('issue','期号');
-                $filter->equal('user_id','用户ID');
+                $filter->equal('issue');
+                $filter->equal('user_id');
                 $filter->equal('status')->select(['1' => '中奖', 2 => '未开奖', 3 => '已返点', 4 => '未中奖']);
                 $filter->equal('lottery_id')->select(Lottery::Status()->get()->pluck('title', 'id'));
                 $filter->between('created_at')->datetime();
             });
-            
-            
+
             $grid->export();
             $grid->disableActions();
-     
+
         });
     }
 
