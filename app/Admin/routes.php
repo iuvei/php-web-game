@@ -26,4 +26,5 @@ Route::group([
     $router->resource('report', 'ReportController');
     $router->resource('video', 'VideoController');
     $router->resource('live', 'LiveController');
+    $router->resource('users_report', 'UsersReportController');
 });

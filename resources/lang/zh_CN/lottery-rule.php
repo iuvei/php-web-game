@@ -11,6 +11,7 @@ return [
         'rule_name' => '玩法名称',
         'rule_code' => '玩法代码',
         'status' => '状态',
+        'lottery_rule_group_id' => '玩法组',
     ],
     'options' => [
     ],

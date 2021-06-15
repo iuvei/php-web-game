@@ -23,16 +23,16 @@ class LotteryRecordController extends AdminController
             $grid->column('id')->sortable();
             $lottery = $grid->getRequestInput('lottery_id');
             if($lottery)
-            {   
+            {
                 $l = Lottery::where('id', $lottery)->first();
                 $grid->model()->where('lottery_time','<=', time() + $l->expect_time * 60)->orderBy('id', 'desc');
             }else{
                 $grid->model()->where('lottery_id',1)->where('lottery_time','<=', time() + 60)->orderBy('id', 'desc');
             }
-            
+
             $grid->column('lottery.title','彩种');
             $grid->column('issue');
-            $grid->column('code');
+            $grid->column('code')->editable(true);
             $grid->column('preset', '预设')->options()->checkbox([
                 1 => '大',
                 2 => '小',
@@ -45,24 +45,24 @@ class LotteryRecordController extends AdminController
             $grid->column('type')->using(['1' => '系统', 2=>'人工预设'])->label([1 => 'success', 2 => 'danger']);
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
-            
+
 
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
                 $filter->equal('issue');
                 $filter->panel();
-  
+
                 $filter->equal('lottery_id')->select(Lottery::Status()->get()->pluck('title', 'id'));
                 $filter->whereBetween('lottery_time',function($q){
                     $start = $this->input['start'] ?? null;
                     $end = $this->input['end'] ?? null;
-                    
+
                     if ($start !== null) {
                         $start = strtotime($start);
                         $q->where('lottery_time', '>=', $start);
-           
+
                     }
-            
+
                     if ($end !== null) {
                         $end = strtotime($end);
                         $q->where('lottery_time', '<=', $end);
@@ -71,7 +71,7 @@ class LotteryRecordController extends AdminController
                 })->datetime();
 
             });
-            
+
             $grid->actions(new OpenLottery());
             $grid->setActionClass(Grid\Displayers\Actions::class);
             $grid->addTableClass(['table-text-center']);
@@ -113,7 +113,7 @@ class LotteryRecordController extends AdminController
             $form->display('id');
             $form->display('lottery.title','彩种');
             $form->display('issue');
-            $form->display('code');
+            $form->text('code');
             $form->display('lottery_time')->customFormat(function ($value){
                 return date('Y-m-d H:i:s', $value);
             });
@@ -123,33 +123,42 @@ class LotteryRecordController extends AdminController
             $form->display('created_at');
             $form->display('updated_at');
             $form->disableResetButton();
-            
+
             $form->disableHeader();
             $form->disableEditingCheck();
             $form->disableViewCheck();
             $form->submitted(function (Form $form) {
-                
+
                 $preset = $form->input('preset');
                 $type = $form->model()->lottery['type'];
-                $res = self::validationRule($preset,$type);
+                $code = $form->input('code');
 
-                if(!$res)
+                if($code)
                 {
-                    return $form->responseValidationMessages('preset', '设置错误，请重新选择');
+                    $code = str_split($code);
+                    $res = implode(',', $code);
+                }
+                if($preset)
+                {
+                    $res = self::validationRule($preset,$type);
+                    if(!$res)
+                    {
+                        return $form->responseValidationMessages('preset', '设置错误，请重新选择');
+                    }
                 }
 
-                // if(time() >= $form->model()->lottery_time)
-                // {
-                //     return $form->responseValidationMessages('preset', '已经开奖，不能修改开奖号码');
-                // }
+                 if(time() >= $form->model()->lottery_time)
+                 {
+                     return $form->responseValidationMessages('preset', '已经开奖，不能修改开奖号码');
+                 }
                 $form->code = $res;
 
             });
             $form->confirm('您确定要手动设置开奖结果？');
         });
     }
-    
-    
+
+
     protected static function validationRule($preset,$type)
     {
 

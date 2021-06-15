@@ -46,16 +46,20 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection payload
      * @property Grid\Column|Collection exception
      * @property Grid\Column|Collection failed_at
+     * @property Grid\Column|Collection game_class_id
+     * @property Grid\Column|Collection code
+     * @property Grid\Column|Collection status
+     * @property Grid\Column|Collection sort
+     * @property Grid\Column|Collection is_recommend
+     * @property Grid\Column|Collection image
      * @property Grid\Column|Collection attempts
      * @property Grid\Column|Collection reserved_at
      * @property Grid\Column|Collection available_at
      * @property Grid\Column|Collection is_video
      * @property Grid\Column|Collection stream
-     * @property Grid\Column|Collection image
      * @property Grid\Column|Collection pull
      * @property Grid\Column|Collection type_val
      * @property Grid\Column|Collection is_hot
-     * @property Grid\Column|Collection is_recommend
      * @property Grid\Column|Collection dev
      * @property Grid\Column|Collection lottery_id
      * @property Grid\Column|Collection time
@@ -63,7 +67,6 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection desc
      * @property Grid\Column|Collection expect_time
      * @property Grid\Column|Collection deleted_at
-     * @property Grid\Column|Collection status
      * @property Grid\Column|Collection order_no
      * @property Grid\Column|Collection money
      * @property Grid\Column|Collection content
@@ -72,12 +75,17 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection rule_name
      * @property Grid\Column|Collection rate
      * @property Grid\Column|Collection issue
-     * @property Grid\Column|Collection code
      * @property Grid\Column|Collection lottery_time
      * @property Grid\Column|Collection rate_code
      * @property Grid\Column|Collection lottery_rule_group_id
      * @property Grid\Column|Collection email
      * @property Grid\Column|Collection token
+     * @property Grid\Column|Collection deposit
+     * @property Grid\Column|Collection withdrawal
+     * @property Grid\Column|Collection bottom_pour
+     * @property Grid\Column|Collection rebates
+     * @property Grid\Column|Collection activity
+     * @property Grid\Column|Collection addtime
      * @property Grid\Column|Collection sex
      * @property Grid\Column|Collection last_login_time
      * @property Grid\Column|Collection coin
@@ -95,6 +103,11 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection before_money
      * @property Grid\Column|Collection after_money
      * @property Grid\Column|Collection remark
+     * @property Grid\Column|Collection href
+     * @property Grid\Column|Collection likes
+     * @property Grid\Column|Collection views
+     * @property Grid\Column|Collection comments
+     * @property Grid\Column|Collection image_s
      * @property Grid\Column|Collection cate
      * @property Grid\Column|Collection img
      * @property Grid\Column|Collection url
@@ -103,7 +116,6 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection adminid
      * @property Grid\Column|Collection admin
      * @property Grid\Column|Collection action
-     * @property Grid\Column|Collection addtime
      * @property Grid\Column|Collection plat
      * @property Grid\Column|Collection list_order
      * @property Grid\Column|Collection app
@@ -161,7 +173,6 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection start_time
      * @property Grid\Column|Collection end_time
      * @property Grid\Column|Collection jump_type
-     * @property Grid\Column|Collection sort
      * @property Grid\Column|Collection user_channel_id
      * @property Grid\Column|Collection channel_id
      * @property Grid\Column|Collection remarks
@@ -172,11 +183,8 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection ambient
      * @property Grid\Column|Collection update_time
      * @property Grid\Column|Collection video_thumb
-     * @property Grid\Column|Collection href
      * @property Grid\Column|Collection voice
      * @property Grid\Column|Collection length
-     * @property Grid\Column|Collection likes
-     * @property Grid\Column|Collection comments
      * @property Grid\Column|Collection isdel
      * @property Grid\Column|Collection xiajia_reason
      * @property Grid\Column|Collection lat
@@ -481,7 +489,6 @@ namespace Dcat\Admin {
      * @property Grid\Column|Collection send_time
      * @property Grid\Column|Collection thumb_s
      * @property Grid\Column|Collection href_w
-     * @property Grid\Column|Collection views
      * @property Grid\Column|Collection steps
      * @property Grid\Column|Collection shares
      * @property Grid\Column|Collection nopass_time
@@ -530,16 +537,20 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection payload(string $label = null)
      * @method Grid\Column|Collection exception(string $label = null)
      * @method Grid\Column|Collection failed_at(string $label = null)
+     * @method Grid\Column|Collection game_class_id(string $label = null)
+     * @method Grid\Column|Collection code(string $label = null)
+     * @method Grid\Column|Collection status(string $label = null)
+     * @method Grid\Column|Collection sort(string $label = null)
+     * @method Grid\Column|Collection is_recommend(string $label = null)
+     * @method Grid\Column|Collection image(string $label = null)
      * @method Grid\Column|Collection attempts(string $label = null)
      * @method Grid\Column|Collection reserved_at(string $label = null)
      * @method Grid\Column|Collection available_at(string $label = null)
      * @method Grid\Column|Collection is_video(string $label = null)
      * @method Grid\Column|Collection stream(string $label = null)
-     * @method Grid\Column|Collection image(string $label = null)
      * @method Grid\Column|Collection pull(string $label = null)
      * @method Grid\Column|Collection type_val(string $label = null)
      * @method Grid\Column|Collection is_hot(string $label = null)
-     * @method Grid\Column|Collection is_recommend(string $label = null)
      * @method Grid\Column|Collection dev(string $label = null)
      * @method Grid\Column|Collection lottery_id(string $label = null)
      * @method Grid\Column|Collection time(string $label = null)
@@ -547,7 +558,6 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection desc(string $label = null)
      * @method Grid\Column|Collection expect_time(string $label = null)
      * @method Grid\Column|Collection deleted_at(string $label = null)
-     * @method Grid\Column|Collection status(string $label = null)
      * @method Grid\Column|Collection order_no(string $label = null)
      * @method Grid\Column|Collection money(string $label = null)
      * @method Grid\Column|Collection content(string $label = null)
@@ -556,12 +566,17 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection rule_name(string $label = null)
      * @method Grid\Column|Collection rate(string $label = null)
      * @method Grid\Column|Collection issue(string $label = null)
-     * @method Grid\Column|Collection code(string $label = null)
      * @method Grid\Column|Collection lottery_time(string $label = null)
      * @method Grid\Column|Collection rate_code(string $label = null)
      * @method Grid\Column|Collection lottery_rule_group_id(string $label = null)
      * @method Grid\Column|Collection email(string $label = null)
      * @method Grid\Column|Collection token(string $label = null)
+     * @method Grid\Column|Collection deposit(string $label = null)
+     * @method Grid\Column|Collection withdrawal(string $label = null)
+     * @method Grid\Column|Collection bottom_pour(string $label = null)
+     * @method Grid\Column|Collection rebates(string $label = null)
+     * @method Grid\Column|Collection activity(string $label = null)
+     * @method Grid\Column|Collection addtime(string $label = null)
      * @method Grid\Column|Collection sex(string $label = null)
      * @method Grid\Column|Collection last_login_time(string $label = null)
      * @method Grid\Column|Collection coin(string $label = null)
@@ -579,6 +594,11 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection before_money(string $label = null)
      * @method Grid\Column|Collection after_money(string $label = null)
      * @method Grid\Column|Collection remark(string $label = null)
+     * @method Grid\Column|Collection href(string $label = null)
+     * @method Grid\Column|Collection likes(string $label = null)
+     * @method Grid\Column|Collection views(string $label = null)
+     * @method Grid\Column|Collection comments(string $label = null)
+     * @method Grid\Column|Collection image_s(string $label = null)
      * @method Grid\Column|Collection cate(string $label = null)
      * @method Grid\Column|Collection img(string $label = null)
      * @method Grid\Column|Collection url(string $label = null)
@@ -587,7 +607,6 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection adminid(string $label = null)
      * @method Grid\Column|Collection admin(string $label = null)
      * @method Grid\Column|Collection action(string $label = null)
-     * @method Grid\Column|Collection addtime(string $label = null)
      * @method Grid\Column|Collection plat(string $label = null)
      * @method Grid\Column|Collection list_order(string $label = null)
      * @method Grid\Column|Collection app(string $label = null)
@@ -645,7 +664,6 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection start_time(string $label = null)
      * @method Grid\Column|Collection end_time(string $label = null)
      * @method Grid\Column|Collection jump_type(string $label = null)
-     * @method Grid\Column|Collection sort(string $label = null)
      * @method Grid\Column|Collection user_channel_id(string $label = null)
      * @method Grid\Column|Collection channel_id(string $label = null)
      * @method Grid\Column|Collection remarks(string $label = null)
@@ -656,11 +674,8 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection ambient(string $label = null)
      * @method Grid\Column|Collection update_time(string $label = null)
      * @method Grid\Column|Collection video_thumb(string $label = null)
-     * @method Grid\Column|Collection href(string $label = null)
      * @method Grid\Column|Collection voice(string $label = null)
      * @method Grid\Column|Collection length(string $label = null)
-     * @method Grid\Column|Collection likes(string $label = null)
-     * @method Grid\Column|Collection comments(string $label = null)
      * @method Grid\Column|Collection isdel(string $label = null)
      * @method Grid\Column|Collection xiajia_reason(string $label = null)
      * @method Grid\Column|Collection lat(string $label = null)
@@ -965,7 +980,6 @@ namespace Dcat\Admin {
      * @method Grid\Column|Collection send_time(string $label = null)
      * @method Grid\Column|Collection thumb_s(string $label = null)
      * @method Grid\Column|Collection href_w(string $label = null)
-     * @method Grid\Column|Collection views(string $label = null)
      * @method Grid\Column|Collection steps(string $label = null)
      * @method Grid\Column|Collection shares(string $label = null)
      * @method Grid\Column|Collection nopass_time(string $label = null)
@@ -1019,16 +1033,20 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection payload
      * @property Show\Field|Collection exception
      * @property Show\Field|Collection failed_at
+     * @property Show\Field|Collection game_class_id
+     * @property Show\Field|Collection code
+     * @property Show\Field|Collection status
+     * @property Show\Field|Collection sort
+     * @property Show\Field|Collection is_recommend
+     * @property Show\Field|Collection image
      * @property Show\Field|Collection attempts
      * @property Show\Field|Collection reserved_at
      * @property Show\Field|Collection available_at
      * @property Show\Field|Collection is_video
      * @property Show\Field|Collection stream
-     * @property Show\Field|Collection image
      * @property Show\Field|Collection pull
      * @property Show\Field|Collection type_val
      * @property Show\Field|Collection is_hot
-     * @property Show\Field|Collection is_recommend
      * @property Show\Field|Collection dev
      * @property Show\Field|Collection lottery_id
      * @property Show\Field|Collection time
@@ -1036,7 +1054,6 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection desc
      * @property Show\Field|Collection expect_time
      * @property Show\Field|Collection deleted_at
-     * @property Show\Field|Collection status
      * @property Show\Field|Collection order_no
      * @property Show\Field|Collection money
      * @property Show\Field|Collection content
@@ -1045,12 +1062,17 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection rule_name
      * @property Show\Field|Collection rate
      * @property Show\Field|Collection issue
-     * @property Show\Field|Collection code
      * @property Show\Field|Collection lottery_time
      * @property Show\Field|Collection rate_code
      * @property Show\Field|Collection lottery_rule_group_id
      * @property Show\Field|Collection email
      * @property Show\Field|Collection token
+     * @property Show\Field|Collection deposit
+     * @property Show\Field|Collection withdrawal
+     * @property Show\Field|Collection bottom_pour
+     * @property Show\Field|Collection rebates
+     * @property Show\Field|Collection activity
+     * @property Show\Field|Collection addtime
      * @property Show\Field|Collection sex
      * @property Show\Field|Collection last_login_time
      * @property Show\Field|Collection coin
@@ -1068,6 +1090,11 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection before_money
      * @property Show\Field|Collection after_money
      * @property Show\Field|Collection remark
+     * @property Show\Field|Collection href
+     * @property Show\Field|Collection likes
+     * @property Show\Field|Collection views
+     * @property Show\Field|Collection comments
+     * @property Show\Field|Collection image_s
      * @property Show\Field|Collection cate
      * @property Show\Field|Collection img
      * @property Show\Field|Collection url
@@ -1076,7 +1103,6 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection adminid
      * @property Show\Field|Collection admin
      * @property Show\Field|Collection action
-     * @property Show\Field|Collection addtime
      * @property Show\Field|Collection plat
      * @property Show\Field|Collection list_order
      * @property Show\Field|Collection app
@@ -1134,7 +1160,6 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection start_time
      * @property Show\Field|Collection end_time
      * @property Show\Field|Collection jump_type
-     * @property Show\Field|Collection sort
      * @property Show\Field|Collection user_channel_id
      * @property Show\Field|Collection channel_id
      * @property Show\Field|Collection remarks
@@ -1145,11 +1170,8 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection ambient
      * @property Show\Field|Collection update_time
      * @property Show\Field|Collection video_thumb
-     * @property Show\Field|Collection href
      * @property Show\Field|Collection voice
      * @property Show\Field|Collection length
-     * @property Show\Field|Collection likes
-     * @property Show\Field|Collection comments
      * @property Show\Field|Collection isdel
      * @property Show\Field|Collection xiajia_reason
      * @property Show\Field|Collection lat
@@ -1454,7 +1476,6 @@ namespace Dcat\Admin {
      * @property Show\Field|Collection send_time
      * @property Show\Field|Collection thumb_s
      * @property Show\Field|Collection href_w
-     * @property Show\Field|Collection views
      * @property Show\Field|Collection steps
      * @property Show\Field|Collection shares
      * @property Show\Field|Collection nopass_time
@@ -1503,16 +1524,20 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection payload(string $label = null)
      * @method Show\Field|Collection exception(string $label = null)
      * @method Show\Field|Collection failed_at(string $label = null)
+     * @method Show\Field|Collection game_class_id(string $label = null)
+     * @method Show\Field|Collection code(string $label = null)
+     * @method Show\Field|Collection status(string $label = null)
+     * @method Show\Field|Collection sort(string $label = null)
+     * @method Show\Field|Collection is_recommend(string $label = null)
+     * @method Show\Field|Collection image(string $label = null)
      * @method Show\Field|Collection attempts(string $label = null)
      * @method Show\Field|Collection reserved_at(string $label = null)
      * @method Show\Field|Collection available_at(string $label = null)
      * @method Show\Field|Collection is_video(string $label = null)
      * @method Show\Field|Collection stream(string $label = null)
-     * @method Show\Field|Collection image(string $label = null)
      * @method Show\Field|Collection pull(string $label = null)
      * @method Show\Field|Collection type_val(string $label = null)
      * @method Show\Field|Collection is_hot(string $label = null)
-     * @method Show\Field|Collection is_recommend(string $label = null)
      * @method Show\Field|Collection dev(string $label = null)
      * @method Show\Field|Collection lottery_id(string $label = null)
      * @method Show\Field|Collection time(string $label = null)
@@ -1520,7 +1545,6 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection desc(string $label = null)
      * @method Show\Field|Collection expect_time(string $label = null)
      * @method Show\Field|Collection deleted_at(string $label = null)
-     * @method Show\Field|Collection status(string $label = null)
      * @method Show\Field|Collection order_no(string $label = null)
      * @method Show\Field|Collection money(string $label = null)
      * @method Show\Field|Collection content(string $label = null)
@@ -1529,12 +1553,17 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection rule_name(string $label = null)
      * @method Show\Field|Collection rate(string $label = null)
      * @method Show\Field|Collection issue(string $label = null)
-     * @method Show\Field|Collection code(string $label = null)
      * @method Show\Field|Collection lottery_time(string $label = null)
      * @method Show\Field|Collection rate_code(string $label = null)
      * @method Show\Field|Collection lottery_rule_group_id(string $label = null)
      * @method Show\Field|Collection email(string $label = null)
      * @method Show\Field|Collection token(string $label = null)
+     * @method Show\Field|Collection deposit(string $label = null)
+     * @method Show\Field|Collection withdrawal(string $label = null)
+     * @method Show\Field|Collection bottom_pour(string $label = null)
+     * @method Show\Field|Collection rebates(string $label = null)
+     * @method Show\Field|Collection activity(string $label = null)
+     * @method Show\Field|Collection addtime(string $label = null)
      * @method Show\Field|Collection sex(string $label = null)
      * @method Show\Field|Collection last_login_time(string $label = null)
      * @method Show\Field|Collection coin(string $label = null)
@@ -1552,6 +1581,11 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection before_money(string $label = null)
      * @method Show\Field|Collection after_money(string $label = null)
      * @method Show\Field|Collection remark(string $label = null)
+     * @method Show\Field|Collection href(string $label = null)
+     * @method Show\Field|Collection likes(string $label = null)
+     * @method Show\Field|Collection views(string $label = null)
+     * @method Show\Field|Collection comments(string $label = null)
+     * @method Show\Field|Collection image_s(string $label = null)
      * @method Show\Field|Collection cate(string $label = null)
      * @method Show\Field|Collection img(string $label = null)
      * @method Show\Field|Collection url(string $label = null)
@@ -1560,7 +1594,6 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection adminid(string $label = null)
      * @method Show\Field|Collection admin(string $label = null)
      * @method Show\Field|Collection action(string $label = null)
-     * @method Show\Field|Collection addtime(string $label = null)
      * @method Show\Field|Collection plat(string $label = null)
      * @method Show\Field|Collection list_order(string $label = null)
      * @method Show\Field|Collection app(string $label = null)
@@ -1618,7 +1651,6 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection start_time(string $label = null)
      * @method Show\Field|Collection end_time(string $label = null)
      * @method Show\Field|Collection jump_type(string $label = null)
-     * @method Show\Field|Collection sort(string $label = null)
      * @method Show\Field|Collection user_channel_id(string $label = null)
      * @method Show\Field|Collection channel_id(string $label = null)
      * @method Show\Field|Collection remarks(string $label = null)
@@ -1629,11 +1661,8 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection ambient(string $label = null)
      * @method Show\Field|Collection update_time(string $label = null)
      * @method Show\Field|Collection video_thumb(string $label = null)
-     * @method Show\Field|Collection href(string $label = null)
      * @method Show\Field|Collection voice(string $label = null)
      * @method Show\Field|Collection length(string $label = null)
-     * @method Show\Field|Collection likes(string $label = null)
-     * @method Show\Field|Collection comments(string $label = null)
      * @method Show\Field|Collection isdel(string $label = null)
      * @method Show\Field|Collection xiajia_reason(string $label = null)
      * @method Show\Field|Collection lat(string $label = null)
@@ -1938,7 +1967,6 @@ namespace Dcat\Admin {
      * @method Show\Field|Collection send_time(string $label = null)
      * @method Show\Field|Collection thumb_s(string $label = null)
      * @method Show\Field|Collection href_w(string $label = null)
-     * @method Show\Field|Collection views(string $label = null)
      * @method Show\Field|Collection steps(string $label = null)
      * @method Show\Field|Collection shares(string $label = null)
      * @method Show\Field|Collection nopass_time(string $label = null)
