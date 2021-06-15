@@ -18,24 +18,27 @@ class UsersReportController extends AdminController
     protected function grid()
     {
         return Grid::make(new UsersReport(), function (Grid $grid) {
+
             $grid->column('id')->sortable();
             $grid->column('user_id');
-            $grid->column('deposit');
-            $grid->column('withdrawal');
-            $grid->column('bonus');
-            $grid->column('bottom_pour');
-            $grid->column('rebates');
-            $grid->column('activity');
+            $grid->column('deposit')->sortable();
+            $grid->column('withdrawal')->sortable();
+            $grid->column('bonus')->sortable();
+            $grid->column('bottom_pour')->sortable();
+            $grid->column('rebates')->sortable();
+            $grid->column('activity')->sortable();
             $grid->column('addtime');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
             $grid->disableActions();
             $grid->disableCreateButton();
             $grid->filter(function (Grid\Filter $filter) {
+                $filter->panel();
                 $filter->equal('user_id');
                 $filter->between('created_at')->date();
             });
         });
+
     }
 
     /**

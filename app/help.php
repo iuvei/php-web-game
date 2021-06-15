@@ -494,3 +494,20 @@ function userAccountChange($user_id, $type, $before_money, $money, $after_money,
     return $res;
 }
 
+
+
+function parseUpdate($data, $field)
+{
+    $sql = '';
+    $keys = array_keys(current($data));
+    foreach ($keys as $column) {
+
+        $sql .= sprintf("`%s` = CASE `%s` \n", $column, $field);
+        foreach ($data as $line) {
+            $sql .= sprintf("WHEN '%s' THEN '%s' \n", $line[$field], $line[$column]);
+        }
+        $sql .= "END,";
+    }
+
+    return rtrim($sql, ',');
+}

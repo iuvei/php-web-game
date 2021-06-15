@@ -2,27 +2,27 @@
 
 namespace App\Console\Commands;
 
-use App\Models\LotteryOrder;
-use App\Models\Report;
+use App\Models\UsersAccountChange;
+use App\Models\UsersReport;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 
-class statistics extends Command
+class users_report extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'report:statistics {type=1}';
+    protected $signature = 'users:report {type=1}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = '系统报表统计';
+    protected $description = '用户报表';
 
     /**
      * Create a new command instance.
@@ -43,19 +43,10 @@ class statistics extends Command
     {
         $type = $this->argument('type');
         $day = $type == 1 ? Carbon::today()->toDateString() : Carbon::yesterday()->toDateString();
-        $res = LotteryOrder::select(DB::raw('sum(money) as money'),DB::raw('sum(bonus) bonus'))
-            ->whereDate('created_at', $day)
-            ->first();
-        if(!empty($res->money))
-        {
-            $bottom_pour = $res->money;
-            $bonus = $res->bonus;
-            Report::updateOrCreate(
-                ['addtime' => $day],
-                ['bottom_pour' => $bottom_pour, 'bonus' => $bonus, 'addtime' => $day]
-            );
-        }
-
-
+        $res = UsersAccountChange::select('user_id',DB::raw('SUM(IF( type = 3, money, 0 )) as bottom_pour'),DB::raw('SUM(IF( type = 4, money, 0 )) as bonus'),DB::raw('DATE(created_at) as d'))
+//            ->whereDate('created_at', $day)
+            ->groupBy('user_id','d')
+            ->get();
+        (new UsersReport())->insertOrUpdate($res);
     }
 }
