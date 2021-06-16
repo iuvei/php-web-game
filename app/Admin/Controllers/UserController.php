@@ -46,7 +46,7 @@ class UserController extends AdminController
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
             $grid->disableViewButton();
-            $grid->export();
+
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
                 $filter->equal('mobile');
