@@ -386,11 +386,12 @@ function lhshengxiao($order, $open_code)
 {
     $num = strToArray($open_code);
     $num = end($num);
+
     if (in_array($num, [12, 24, 36, 48])) $content = '鼠';
     if (in_array($num, [10, 22, 34, 46])) $content = '虎';
     if (in_array($num, [8, 20, 32, 44])) $content = '龙';
     if (in_array($num, [6, 18, 30, 42])) $content = '马';
-    if (in_array($num, [4, 16, 28, 40])) $content = '候';
+    if (in_array($num, [4, 16, 28, 40])) $content = '猴';
     if (in_array($num, [2, 14, 26, 38])) $content = '狗';
     if (in_array($num, [11, 23, 35, 47])) $content = '牛';
     if (in_array($num, [7, 19, 31, 43])) $content = '蛇';
@@ -414,7 +415,7 @@ function lhsebo($order, $open_code)
     $num = strToArray($open_code);
     $num = end($num);
     if (in_array($num, [1,2,7,8,12,13,18,19,23,24,29,30,34,35,40,45,46])) $content = '红波';
-    if (in_array($num, [3,4,9,10,14,15,20,25,26,36,37,41,42,47,48])) $content = '蓝波';
+    if (in_array($num, [3,4,9,10,14,15,20,25,26,36,37,41,42,47,48,31])) $content = '蓝波';
     if (in_array($num, [5,6,11,16,17,21,22,27,28,32,33,38,39,43,44,49])) $content = '绿波';
 
     if (isset($content) && $content == $order['content']) {
