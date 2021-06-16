@@ -12,6 +12,7 @@ return [
         'time' => '停止投注间隔',
         'status' => '状态',
         'Issue' => '期数',
+        'is_recommend' => '首页推荐',
         'desc' => '彩种简介',
         'expect_time' => '开奖时间',
     ],

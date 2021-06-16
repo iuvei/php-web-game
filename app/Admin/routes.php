@@ -28,4 +28,7 @@ Route::group([
     $router->resource('live', 'LiveController');
     $router->resource('users_report', 'UsersReportController');
     $router->get('setting', 'SettingController@index');
+    $router->resource('banner', 'BannerController');
+    $router->resource('activity', 'ActivityController');
+    $router->resource('gift', 'GiftController');
 });

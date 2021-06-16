@@ -6,11 +6,9 @@ use Dcat\Admin\Traits\HasDateTimeFormatter;
 
 use Illuminate\Database\Eloquent\Model;
 
-class User extends Model
+class Gift extends Model
 {
-    use HasDateTimeFormatter;
-
-    protected $table = 'users';
-
-
+	use HasDateTimeFormatter;
+    protected $table = 'gift';
+    
 }

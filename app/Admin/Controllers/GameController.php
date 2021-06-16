@@ -25,16 +25,15 @@ class GameController extends AdminController
             $grid->column('name');
             $grid->column('image')->image('', 50, 50);
             $grid->column('code');
-            $grid->column('status')->using(['1' => '开启', 2 => '关闭'])->label([1 => 'success', 2 => 'danger']);
-
+            $grid->column('status')->switch('success',true);
+            $grid->column('is_recommend')->switch('success',true)->sortable();
             $grid->column('sort');
-            $grid->column('is_recommend');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
 
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
-                $filter->equal('status')->select([1 => '开启', 2 => '关闭']);
+                $filter->equal('status')->select([1 => '开启', 0 => '关闭']);
                 $filter->equal('game_class_id')->select(GameClass::get()->pluck('title', 'id'));
 
 
@@ -77,9 +76,9 @@ class GameController extends AdminController
             $form->text('name')->required();
             $form->image('image')->uniqueName()->autoUpload()->required();
             $form->text('code')->required();
-            $form->text('status')->options([1 => '开启', 2 => '关闭'])->default(1);
+            $form->select('status')->options([1 => '开启', 0 => '关闭'])->default(1)->required();
+            $form->select('is_recommend')->options([1 => '是', 0 => '否'])->default(0)->required();
             $form->text('sort');
-            $form->text('is_recommend')->options([1 => '是', 2 => '否'])->default(2);
 
             $form->display('created_at');
             $form->display('updated_at');

@@ -26,7 +26,8 @@ class LotteryController extends AdminController
             $grid->column('name');
             $grid->column('time');
             $grid->column('Issue');
-            $grid->column('status')->using(['1' => '正常', 2=>'禁用'])->label([1 => 'success', 2 => 'danger'])->switch('', true);
+            $grid->column('status')->switch('success', true);
+            $grid->column('is_recommend')->switch('success', true);
             $grid->column('desc')
                 ->display('查看') // 设置按钮名称
                 ->modal(function ($modal) {
@@ -96,6 +97,7 @@ class LotteryController extends AdminController
             $form->select('type')->options(config('lottery'))->required()->default('k3');
             $form->text('title')->required();
             $form->select('status')->options([1 => '开启', 0 => '关闭'])->default(1)->required();
+            $form->select('is_recommend')->options([1 => '是', 0 => '否'])->default(0)->required();
             $form->text('name')->required()->placeholder('彩种标识:3fks');
             $form->number('time')->required()
                 ->placeholder('封盘时间')

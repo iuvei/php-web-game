@@ -4,6 +4,7 @@ namespace App\Admin\Forms;
 
 use App\Models\Lottery;
 use Dcat\Admin\Widgets\Form;
+use \App\Models\Setting as SettingModel;
 
 class Setting extends Form
 {
@@ -16,14 +17,18 @@ class Setting extends Form
      */
     public function handle(array $input)
     {
-        // dump($input);
+        $res = SettingModel::updateOrCreate(
+            ['name' => 'setting'],
+            ['name' => 'setting', 'content' => $input]
+        );
+        if ($res) {
+            return $this
+                ->response()
+                ->success('保存成功')
+                ->refresh();
+        }
+        return $this->response()->error('保存失败')->refresh();
 
-        // return $this->response()->error('Your error message.');
-
-        return $this
-            ->response()
-            ->success('Processed successfully.')
-            ->refresh();
     }
 
     /**
@@ -36,10 +41,12 @@ class Setting extends Form
             $this->editor('maintain_tips', '维护提示')->required();
             $this->text('service', '客服地址')->required()->rules('url');
             $this->text('cdn', 'CDN域名')->required()->rules('url');
+            $this->select('is_private_letter ', '私信')->options([1 => '开启', 2 => '关闭'])->default(2)->required();
         });
         $this->tab('直播配置', function () {
-            $this->select('speak_limit', '发言等级限制')->default(2)->required();
-            $this->editor('user_list_time', '列表请求')->help('用户列表请求间隔(秒)')->required();
+
+            $this->text('speak_limit', '发言等级限制')->default(2)->required();
+            $this->number('user_list_time', '列表请求')->help('用户列表请求间隔(秒)')->required();
             $this->text('chatserver', '聊天服务器带端口')->required()->rules('url');
             $this->text('live_notice', '聊天公告')->required();
             $this->multipleSelect('live_game', '录播彩种')->options(Lottery::Status()->get()->pluck('title', 'id'))->required();
@@ -76,7 +83,6 @@ class Setting extends Form
                 $this->text('SmsSdkAppId', 'SmsSdkAppId')->help('短信 SdkAppId，在 短信控制台 添加应用后生成的实际 SdkAppId，示例如1400006666。')->required();
                 $this->text('TemplateId', 'TemplateId')->help('模板 ID，必须填写已审核通过的模板 ID。模板 ID 可登录 短信控制台 查看，若向境外手机号发送短信，仅支持使用国际/港澳台短信模板。')->required();
                 $this->text('SignName', 'SignName')->help('短信签名内容，使用 UTF-8 编码，必须填写已审核通过的签名，例如：腾讯云，签名信息可登录 短信控制台 查看。 注：国内短信为必填参数。')->required();
-                $this->text('TemplateParamSet', 'SignName')->help('短信签名内容，使用 UTF-8 编码，必须填写已审核通过的签名，例如：腾讯云，签名信息可登录 短信控制台 查看。 注：国内短信为必填参数。')->required();
             });
         });
 
@@ -105,7 +111,7 @@ class Setting extends Form
             $this->text('wechat', '微信')->required();
             $this->text('agent_telegram', 'Telegram')->required();
         });
-
+        $this->confirm('确定保存么?', '');
 
     }
 
@@ -116,9 +122,11 @@ class Setting extends Form
      */
     public function default()
     {
-        return [
-            'name' => 'John Doe',
-            'email' => 'John.Doe@gmail.com',
-        ];
+        $setting = SettingModel::where('name', 'setting')->first();
+        if($content = $setting->content)
+        {
+            return $content;
+        }
+
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Admin\Controllers;
 
 use App\Admin\Repositories\Live;
+use App\Models\Lottery;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
@@ -32,10 +33,10 @@ class LiveController extends AdminController
             $grid->column('lottery_id');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
-        
+
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
-        
+
             });
         });
     }
@@ -76,18 +77,23 @@ class LiveController extends AdminController
     {
         return Form::make(new Live(), function (Form $form) {
             $form->display('id');
-            $form->text('user_id');
-            $form->text('is_video');
-            $form->text('stream');
-            $form->text('image');
-            $form->text('pull');
-            $form->text('type');
-            $form->text('type_val');
-            $form->text('is_hot');
-            $form->text('is_recommend');
+            $form->image('image')->uniqueName()->autoUpload()->required();
+            $form->text('user_id')->required();
+            $form->select('is_video')->options([1 => '直播', 2=> '录播'])->default(2)->required();
+            $form->text('stream')->required();
+            $form->text('pull')->required();
+            $form->select('lottery_id')->options(Lottery::Status()->get()->pluck('title','id'))->required();
+            $form->select('type')->options([1 => '默认', 2 => '密码房', 3 => '收费房'])->when(2,function (Form $form){
+                $form->text('type_val')->help('请填写密码')->required();
+            })->when(3,function (Form $form){
+                $form->text('type_val')->help('请填写每分钟扣多少钱')->required();
+            })->default(1);
+
+            $form->select('is_hot')->options([1 => '是', 2 => '否'])->default(2);
+            $form->select('is_recommend')->options([1 => '是', 2 => '否'])->default(2);
             $form->text('dev');
-            $form->text('lottery_id');
-        
+
+
             $form->display('created_at');
             $form->display('updated_at');
         });

@@ -2,14 +2,13 @@
 
 namespace App\Admin\Controllers;
 
-use App\Admin\Repositories\Video;
-use App\Models\VideoClass;
+use App\Admin\Repositories\Activity;
 use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
 use Dcat\Admin\Http\Controllers\AdminController;
 
-class VideoController extends AdminController
+class ActivityController extends AdminController
 {
     /**
      * Make a grid builder.
@@ -18,24 +17,20 @@ class VideoController extends AdminController
      */
     protected function grid()
     {
-        return Grid::make(new Video(['videoClass']), function (Grid $grid) {
+        return Grid::make(new Activity(), function (Grid $grid) {
             $grid->column('id')->sortable();
-            $grid->column('videoClass.title', '分类');
-            $grid->column('user_id');
             $grid->column('title');
+            $grid->column('activity_class_id')->using([1 => '直播活动', 2 => '游戏活动']);
             $grid->column('image')->image('',100,100);
             $grid->column('href');
-            $grid->column('status')->switch('success', true);
-            $grid->column('likes');
-            $grid->column('views');
-            $grid->column('comments');
-            $grid->column('sort');
+            $grid->column('status')->switch('success');
+            $grid->column('start_time');
+            $grid->column('end_time');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
 
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
-                $filter->equal('video_class_id')->select(VideoClass::get()->pluck('title', 'id'));
 
             });
         });
@@ -50,17 +45,14 @@ class VideoController extends AdminController
      */
     protected function detail($id)
     {
-        return Show::make($id, new Video(), function (Show $show) {
+        return Show::make($id, new Activity(), function (Show $show) {
             $show->field('id');
-            $show->field('user_id');
             $show->field('title');
+            $show->field('activity_class_id');
             $show->field('image');
             $show->field('href');
-            $show->field('likes');
-            $show->field('views');
-            $show->field('comments');
-            $show->field('status');
-            $show->field('sort');
+            $show->field('start_time');
+            $show->field('end_time');
             $show->field('created_at');
             $show->field('updated_at');
         });
@@ -73,18 +65,15 @@ class VideoController extends AdminController
      */
     protected function form()
     {
-        return Form::make(new Video(), function (Form $form) {
+        return Form::make(new Activity(), function (Form $form) {
             $form->display('id');
-            $form->image('image')->uniqueName()->required();
-            $form->select('video_class_id')->options(VideoClass::get()->pluck('title','id'))->required();
-            $form->text('user_id')->required();
             $form->text('title')->required();
-            $form->text('href')->required();
+            $form->select('activity_class_id')->options([1 => '直播活动', 2 => '游戏活动'])->default(1)->required();
+            $form->image('image')->autoUpload()->uniqueName()->required();;
             $form->switch('status')->default(1)->required();
-            $form->text('likes')->default(0);
-            $form->text('views')->default(0);
-            $form->text('comments')->default(0);
-            $form->text('sort');
+            $form->text('href')->rules('url')->required();
+            $form->datetime('start_time')->required();
+            $form->datetime('end_time')->required();
 
             $form->display('created_at');
             $form->display('updated_at');
