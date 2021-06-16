@@ -47,6 +47,11 @@ class users_report extends Command
             ->whereDate('created_at', $day)
             ->groupBy('user_id','d')
             ->get();
-        (new UsersReport())->insertOrUpdate($res);
+
+        if($res->isNotEmpty())
+        {
+
+            (new UsersReport())->insertOrUpdate($res);
+        }
     }
 }

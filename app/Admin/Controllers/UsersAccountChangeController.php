@@ -31,13 +31,13 @@ class UsersAccountChangeController extends AdminController
             $grid->column('remark');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
-        
+
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->equal('id');
                 $filter->equal('user_id');
-        
+
             });
-            
+            $grid->export();
             $grid->disableCreateButton();
             $grid->disableViewButton();
             $grid->disableDeleteButton();
@@ -81,7 +81,7 @@ class UsersAccountChangeController extends AdminController
             $form->text('money');
             $form->text('after_money');
             $form->text('remark');
-        
+
             $form->display('created_at');
             $form->display('updated_at');
         });

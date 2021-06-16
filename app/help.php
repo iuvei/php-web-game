@@ -1,6 +1,28 @@
 <?php
 
 
+function LHC($code)
+{
+    if ($code == 1) {
+        $arr = [5, 7, 9];
+    }
+    if ($code == 2) {
+        $arr = [6, 8];
+
+    }
+    if ($code == 3) {
+        $arr = [1, 3];
+
+    }
+    if ($code == 4) {
+        $arr = [0, 2, 4];
+    }
+
+    $rand = $arr[array_rand($arr)];
+    return $rand . ',' . rand(0, 9) . ',' . rand(0, 9) . ',' . rand(0, 9) . ',' . rand(0, 9);
+}
+
+
 function SSC($code)
 {
 

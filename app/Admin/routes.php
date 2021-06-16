@@ -27,4 +27,5 @@ Route::group([
     $router->resource('video', 'VideoController');
     $router->resource('live', 'LiveController');
     $router->resource('users_report', 'UsersReportController');
+    $router->get('setting', 'SettingController@index');
 });
