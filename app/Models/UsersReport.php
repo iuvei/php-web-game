@@ -36,4 +36,18 @@ class UsersReport extends Model
         return DB::select($sql);
     }
 
+    public function scopeUserId($query,$user_id)
+    {
+        if($user_id)
+        {
+            return $query->where('user_id', $user_id);
+        }
+    }
+
+    public function scopeAddtime($query,$addtime)
+    {
+        $addtime = $addtime ? $addtime : Carbon::today()->toDateString();
+        return $query->where('addtime', $addtime);
+    }
+
 }

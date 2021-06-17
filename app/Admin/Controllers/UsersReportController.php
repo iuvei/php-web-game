@@ -20,7 +20,7 @@ class UsersReportController extends AdminController
     {
         Artisan::call('users:report');
         return Grid::make(new UsersReport(), function (Grid $grid) {
-
+            $grid->model()->Addtime($grid->getRequestInput('addtime'));
             $grid->column('id')->sortable();
             $grid->column('user_id');
             $grid->column('deposit')->sortable();
@@ -38,7 +38,7 @@ class UsersReportController extends AdminController
             $grid->filter(function (Grid\Filter $filter) {
                 $filter->panel();
                 $filter->equal('user_id');
-                $filter->between('created_at')->date();
+                $filter->equal('addtime')->date();
             });
         });
 
