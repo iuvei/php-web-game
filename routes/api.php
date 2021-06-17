@@ -27,4 +27,5 @@ Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function () {
 
     Route::get('getUserBalance',[UserController::class,'getUserBalance'])->name('getUserBalance');
     Route::get('getConfig',[HomeController::class,'getConfig'])->name('getConfig');
+    Route::get('getLiveList',[HomeController::class,'getLiveList'])->name('getLiveList');
 });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Resources\SettingResource;
+use App\Models\Live;
 use App\Models\Setting;
 use Illuminate\Support\Facades\Cache;
 
@@ -23,5 +24,9 @@ class HomeController extends Controller
         }
     }
 
-    public
+    public function getLiveList()
+    {
+        $live = Live::orderBy('id', 'desc')->get();
+        dd($live);
+    }
 }
