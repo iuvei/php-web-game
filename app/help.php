@@ -65,7 +65,7 @@ function KC($code)
     }
     if ($code == 3) {
         $n1 = [1, 3, 5];
-        $n2 = [6, 2, 8, 4, 5, 7, 9, 10];
+        $n2 = [6, 2, 8, 4, 7, 9, 10];
         shuffle($n1);
         shuffle($n2);
         $array = array_merge($n1, $n2);
