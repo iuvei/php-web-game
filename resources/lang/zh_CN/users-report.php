@@ -10,6 +10,7 @@ return [
         'withdrawal' => '取款',
         'bonus' => '奖金',
         'bottom_pour' => '下注',
+        'yingkui' => '盈亏',
         'rebates' => '返点',
         'activity' => '活动',
         'addtime' => '日期',

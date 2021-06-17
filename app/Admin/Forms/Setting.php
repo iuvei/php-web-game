@@ -5,6 +5,7 @@ namespace App\Admin\Forms;
 use App\Models\Lottery;
 use Dcat\Admin\Widgets\Form;
 use \App\Models\Setting as SettingModel;
+use Illuminate\Support\Facades\Cache;
 
 class Setting extends Form
 {
@@ -22,6 +23,7 @@ class Setting extends Form
             ['name' => 'setting', 'content' => $input]
         );
         if ($res) {
+            Cache::forget('getConfig');
             return $this
                 ->response()
                 ->success('保存成功')
@@ -41,7 +43,7 @@ class Setting extends Form
             $this->editor('maintain_tips', '维护提示')->required();
             $this->text('service', '客服地址')->required()->rules('url');
             $this->text('cdn', 'CDN域名')->required()->rules('url');
-            $this->select('is_private_letter ', '私信')->options([1 => '开启', 2 => '关闭'])->default(2)->required();
+            $this->switch('is_private', '私信')->required();
         });
         $this->tab('直播配置', function () {
 
@@ -107,8 +109,8 @@ class Setting extends Form
             $this->text('Potato', '土豆')->required();
         });
         $this->tab('代理加盟', function () {
-            $this->text('qq', 'QQ')->required();
-            $this->text('wechat', '微信')->required();
+            $this->text('agent_qq', 'QQ')->required();
+            $this->text('agent_wechat', '微信')->required();
             $this->text('agent_telegram', 'Telegram')->required();
         });
         $this->confirm('确定保存么?', '');

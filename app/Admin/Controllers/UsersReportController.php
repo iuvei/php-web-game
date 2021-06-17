@@ -25,8 +25,11 @@ class UsersReportController extends AdminController
             $grid->column('user_id');
             $grid->column('deposit')->sortable();
             $grid->column('withdrawal')->sortable();
-            $grid->column('bonus')->sortable();
             $grid->column('bottom_pour')->sortable();
+            $grid->column('bonus')->sortable();
+            $grid->column('yingkui')->display(function(){
+                return $this->bottom_pour - $this->bonus;
+            });
             $grid->column('rebates')->sortable();
             $grid->column('activity')->sortable();
             $grid->column('addtime');
@@ -56,8 +59,8 @@ class UsersReportController extends AdminController
             $show->field('user_id');
             $show->field('deposit');
             $show->field('withdrawal');
-            $show->field('bonus');
             $show->field('bottom_pour');
+            $show->field('bonus');
             $show->field('rebates');
             $show->field('activity');
             $show->field('addtime');
