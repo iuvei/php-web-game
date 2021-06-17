@@ -20,7 +20,8 @@
         "mavinoo/laravel-batch": "^2.2",
         "overtrue/laravel-lang": "~5.0",
         "predis/predis": "^1.1",
-        "rennokki/laravel-eloquent-query-cache": "^2.6"
+        "rennokki/laravel-eloquent-query-cache": "^2.6",
+        "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
