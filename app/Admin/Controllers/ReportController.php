@@ -22,7 +22,12 @@ class ReportController extends AdminController
     {
         Artisan::call('report:statistics');
         return Grid::make(new Report(), function (Grid $grid) {
-            $grid->model()->orderByDesc('created_at');
+            $grid->header(function (){
+                $content = \App\Models\Report::getMonthReport();
+                $content = "<span style='font-size: 18px'>$content</span>";
+                return new Card('本月报表',$content);
+            });
+            $grid->model()->orderByDesc('addtime');
             $grid->column('deposit');
             $grid->column('withdrawal');
             $grid->column('bottom_pour');
@@ -32,11 +37,9 @@ class ReportController extends AdminController
             $grid->column('profit_and_loss')->display(function(){
                 return $this->bottom_pour - $this->bonus;
             });
-            $grid->column('created_at');
-            $grid->column('updated_at')->sortable();
-
+            $grid->column('addtime');
             $grid->filter(function (Grid\Filter $filter) {
-                $filter->between('created_at')->datetime();
+                $filter->equal('addtime')->date();
             });
             $grid->export();
             $grid->disableActions();

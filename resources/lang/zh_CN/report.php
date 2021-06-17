@@ -12,6 +12,7 @@ return [
         'rebates' => '返点',
         'activity' => '活动',
         'profit_and_loss' => '盈亏',
+        'addtime' => '日期',
     ],
     'options' => [
     ],

@@ -30,8 +30,6 @@ class UsersReportController extends AdminController
             $grid->column('rebates')->sortable();
             $grid->column('activity')->sortable();
             $grid->column('addtime');
-            $grid->column('created_at');
-            $grid->column('updated_at')->sortable();
             $grid->disableActions();
             $grid->export();
             $grid->disableCreateButton();
