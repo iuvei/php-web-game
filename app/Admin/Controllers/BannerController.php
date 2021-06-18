@@ -7,6 +7,7 @@ use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
 use Dcat\Admin\Http\Controllers\AdminController;
+use Illuminate\Support\Facades\Cache;
 
 class BannerController extends AdminController
 {
@@ -61,6 +62,7 @@ class BannerController extends AdminController
      */
     protected function form()
     {
+        Cache::forget('getConfig');
         return Form::make(new Banner(), function (Form $form) {
             $form->display('id');
             $form->image('image')->autoUpload()->uniqueName()->required();

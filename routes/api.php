@@ -28,4 +28,10 @@ Route::prefix('v1')->namespace('Api')->name('api.v1.')->group(function () {
     Route::get('getUserBalance',[UserController::class,'getUserBalance'])->name('getUserBalance');
     Route::get('getConfig',[HomeController::class,'getConfig'])->name('getConfig');
     Route::get('getLiveList',[HomeController::class,'getLiveList'])->name('getLiveList');
+    Route::get('getVideo',[HomeController::class,'getVideo'])->name('getVideo');
+    Route::get('getVideoClass',[HomeController::class,'getVideoClass'])->name('getVideoClass');
+    Route::get('getHotGame',[HomeController::class,'getHotGame'])->name('getHotGame');
+    Route::get('getGameClass',[HomeController::class,'getGameClass'])->name('getGameClass');
+    Route::get('getGameList',[HomeController::class,'getGameList'])->name('getGameList');
+    Route::get('getActivity',[HomeController::class,'getActivity'])->name('getActivity');
 });

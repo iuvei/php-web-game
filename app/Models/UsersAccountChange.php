@@ -4,10 +4,7 @@ namespace App\Models;
 
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\DB;
-
-class UsersAccountChange extends Model
+class UsersAccountChange extends BaseModel
 {
 	use HasDateTimeFormatter;
     protected $table = 'users_account_change';

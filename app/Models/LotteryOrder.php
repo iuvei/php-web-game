@@ -5,12 +5,11 @@ namespace App\Models;
 use Carbon\Carbon;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
-class LotteryOrder extends Model
+class LotteryOrder extends BaseModel
 {
     use HasDateTimeFormatter;
     use SoftDeletes;
@@ -35,7 +34,7 @@ class LotteryOrder extends Model
         return $this->belongsTo(\App\Models\LotteryRule::class);
     }
 
-    public function scopeStatus($query, $status)
+    public function scopeStatus($query, $status=1)
     {
         if ($status) {
             return $query->where('status', $status);

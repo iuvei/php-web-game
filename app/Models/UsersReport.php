@@ -4,11 +4,9 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Dcat\Admin\Traits\HasDateTimeFormatter;
-
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
-class UsersReport extends Model
+class UsersReport extends BaseModel
 {
     use HasDateTimeFormatter;
 

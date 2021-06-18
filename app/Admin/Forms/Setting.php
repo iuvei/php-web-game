@@ -40,10 +40,10 @@ class Setting extends Form
     {
         $this->tab('基本配置', function () {
             $this->select('maintain', '网站维护')->options([1 => '开启', 2 => '关闭'])->default(2)->required();
-            $this->editor('maintain_tips', '维护提示')->required();
+            $this->editor('maintain_tips', '维护提示');
             $this->text('service', '客服地址')->required()->rules('url');
             $this->text('cdn', 'CDN域名')->required()->rules('url');
-            $this->switch('is_private', '私信')->required();
+            $this->select('is_private', '私信')->options([1 => '开启', 0 => '关闭'])->default(0);
         });
         $this->tab('直播配置', function () {
 
@@ -56,14 +56,14 @@ class Setting extends Form
 
 
         $this->tab('视频配置', function () {
-            $this->text('free_look_limit', '每日免费观影次数')->required();
+            $this->text('free_look_limit', '每日免费观影次数')->default(5)->required();
         });
 
         $this->tab('三方游戏配置', function () {
             $this->text('agent_domain', '域名')->required();
             $this->text('agent_account', '代理账号')->required();
             $this->text('agent_key', '密钥')->required();
-            $this->text('agent_money', '转入最小金额')->default(0)->required();
+            $this->text('agent_money', '转入最小金额')->default(0);
         });
 
         $this->tab('App管理', function () {
@@ -105,13 +105,13 @@ class Setting extends Form
             $this->text('ipa_appkey', '友盟IOS应用-appkey')->required();
         });
         $this->tab('社区管理', function () {
-            $this->text('telegram', '电报')->required();
-            $this->text('Potato', '土豆')->required();
+            $this->text('telegram', '电报');
+            $this->text('Potato', '土豆');
         });
         $this->tab('代理加盟', function () {
-            $this->text('agent_qq', 'QQ')->required();
-            $this->text('agent_wechat', '微信')->required();
-            $this->text('agent_telegram', 'Telegram')->required();
+            $this->text('agent_qq', 'QQ');
+            $this->text('agent_wechat', '微信');
+            $this->text('agent_telegram', 'Telegram');
         });
         $this->confirm('确定保存么?', '');
 

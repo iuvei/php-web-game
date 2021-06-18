@@ -8,6 +8,7 @@ use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
 use Dcat\Admin\Http\Controllers\AdminController;
 use Dcat\Admin\Widgets\Card;
+use Illuminate\Support\Facades\Cache;
 
 class LotteryController extends AdminController
 {
@@ -110,7 +111,7 @@ class LotteryController extends AdminController
                 3 => '3分钟一期',
                 5 => '5分钟一期',
             ])->placeholder('请选择开奖时间');
-
+            Cache::forget('getHotGame');
             $form->display('created_at');
             $form->display('updated_at');
             $form->footer(function ($footer) {

@@ -4,9 +4,7 @@ namespace App\Models;
 
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 
-use Illuminate\Database\Eloquent\Model;
-
-class LotteryRule extends Model
+class LotteryRule extends BaseModel
 {
 	use HasDateTimeFormatter;
     protected $table = 'lottery_rule';

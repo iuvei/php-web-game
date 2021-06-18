@@ -3,17 +3,15 @@
 namespace App\Models;
 
 use Dcat\Admin\Traits\HasDateTimeFormatter;
+use Illuminate\Support\Facades\Cache;
 
-use Illuminate\Database\Eloquent\Model;
-
-class Live extends Model
+class Live extends BaseModel
 {
 	use HasDateTimeFormatter;
     protected $table = 'live';
 
-    public function scopeStatus($query)
-    {
-        return $query->where('status', 1);
-    }
+    protected $fillable = ['user_id', 'is_video', 'stream', 'image', 'pull', 'type', 'type_val', 'is_hot', 'is_recommend','dev', 'lottery_id'];
+
+
 
 }

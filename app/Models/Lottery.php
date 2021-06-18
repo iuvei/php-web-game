@@ -4,9 +4,8 @@ namespace App\Models;
 
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Model;
 
-class Lottery extends Model
+class Lottery extends BaseModel
 {
 	use HasDateTimeFormatter;
     use SoftDeletes;
@@ -19,9 +18,9 @@ class Lottery extends Model
         return $query->where('name', $value);
     }
 
-    public function scopeStatus($query)
+    public function scopeIsRecommend($query)
     {
-        return $query->where('status', 1);
+        return $query->where('is_recommend', 1);
     }
 
     public function rule()

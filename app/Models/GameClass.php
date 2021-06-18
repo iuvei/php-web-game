@@ -4,11 +4,9 @@ namespace App\Models;
 
 use Dcat\Admin\Traits\HasDateTimeFormatter;
 
-use Illuminate\Database\Eloquent\Model;
-
-class GameClass extends Model
+class GameClass extends BaseModel
 {
 	use HasDateTimeFormatter;
     protected $table = 'game_class';
-    
+
 }

@@ -1,6 +1,23 @@
 <?php
 
 
+use App\Models\Banner;
+use App\Models\Setting;
+use Illuminate\Support\Facades\Cache;
+use \Illuminate\Support\Facades\Redis;
+
+function getConfig()
+{
+    return Cache::rememberForever('getConfig',function (){
+        $setting = Setting::Name()->first();
+        return $setting->content;
+    });
+}
+
+
+
+
+
 function LHC($code)
 {
     if ($code == 1) {

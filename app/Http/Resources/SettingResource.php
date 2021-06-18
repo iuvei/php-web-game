@@ -34,6 +34,7 @@ class SettingResource extends JsonResource
             'join_in_wx' => $this['agent_wechat'],
             'join_in_tg' => $this['agent_telegram'],
             'is_private' => $this['is_private'],
+            'banner' => BannerResource::collection($this['banner']),
             'live_type' => [
                 [
                     "0",
