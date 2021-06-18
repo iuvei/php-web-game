@@ -43,7 +43,7 @@ class HomeController extends Controller
     public function getLiveList(Request $request)
     {
         $limit = $request->input('limit', 15);
-        $live = Live::orderBy('id','desc')->simplePaginate($limit);
+        $live = Live::orderBy('sort','desc')->simplePaginate($limit);
         return LiveResource::collection($live)->additional(['code' => 0, 'message' => 'ok']);
     }
 
@@ -77,7 +77,7 @@ class HomeController extends Controller
     public function getHotGame()
     {
         $lottery = Cache::rememberForever('getHotGame', function (){
-            return Lottery::IsRecommend()->get()->merge(Game::IsRecommend()->get())->toArray();
+            return Lottery::IsRecommend()->orderBy('sort','desc')->get()->merge(Game::IsRecommend()->orderBy('sort','desc')->get())->toArray();
         });
         return HotGameResource::collection($lottery)->additional(['code' => 0, 'message' => 'ok']);
     }

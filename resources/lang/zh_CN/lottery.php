@@ -11,6 +11,7 @@ return [
         'name' => '彩种标示(唯一值)',
         'time' => '停止投注间隔',
         'status' => '状态',
+        'sort' => '排序',
         'Issue' => '期数',
         'is_recommend' => '首页推荐',
         'desc' => '彩种简介',

@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Live;
+use App\Models\User;
 use Illuminate\Console\Command;
 
 class CollectLive extends Command
@@ -46,7 +47,8 @@ class CollectLive extends Command
      */
     public function handle()
     {
-        foreach ($this->list as $v)
+        $user = User::where('iszombie', 1)->limit(500)->get();
+        foreach ($this->list as $k=>$v)
         {
             $list = [];
             $res = file_get_contents($this->url. $v);
@@ -55,7 +57,6 @@ class CollectLive extends Command
             {
                 $list = array_merge($list, $res['zhubo']);
             }
-
             $insert = [];
             $time = time();
             $config = getConfig();
@@ -65,10 +66,11 @@ class CollectLive extends Command
                 if($this->filtration($v['address']))
                 {
                     $insert[] = [
-                        'user_id' => rand(1,99999),
+                        'user_id' => $user[$k]['id'],
                         'is_video' => 1,
                         'stream' => $k . '_' .$time,
                         'image' => $v['img'],
+                        'title' => $v['title'],
                         'pull' => $v['address'],
                         'type' => 1,
                         'is_hot' => 0,

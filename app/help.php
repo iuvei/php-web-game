@@ -14,6 +14,14 @@ function getConfig()
     });
 }
 
+function getUserInfo($id)
+{
+    return Cache::rememberForever('user:' . $id,function ()use($id){
+        return \App\Models\User::where('id', $id)->first();
+    });
+
+}
+
 function cs()
 {
     Redis::set('token', 1111);

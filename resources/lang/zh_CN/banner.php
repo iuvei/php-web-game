@@ -8,6 +8,7 @@ return [
         'title' => '标题',
         'href' => '跳转地址',
         'is_href' => '跳转',
+        'sort' => '排序',
         'status' => '状态',
         'image' => '图片',
         'is_interior' => '类型',

@@ -9,6 +9,7 @@ return [
         'activity_class_id' => '活动分类',
         'image' => '封面',
         'status' => '状态',
+        'sort' => '排序',
         'href' => '地址',
         'start_time' => '开始时间',
         'end_time' => '结束时间',
