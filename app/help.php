@@ -14,7 +14,12 @@ function getConfig()
     });
 }
 
-
+function cs()
+{
+    Redis::set('token', 1111);
+    $res = Redis::get('token');
+    dd($res);
+}
 
 
 

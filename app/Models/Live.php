@@ -9,6 +9,7 @@ class Live extends BaseModel
 {
 	use HasDateTimeFormatter;
     protected $table = 'live';
+    protected $appends = [''];
 
     protected $fillable = ['user_id', 'is_video', 'stream', 'image', 'pull', 'type', 'type_val', 'is_hot', 'is_recommend','dev', 'lottery_id'];
 

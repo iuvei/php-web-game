@@ -24,6 +24,7 @@ class ActivityController extends AdminController
             $grid->column('image')->image('',100,100);
             $grid->column('href');
             $grid->column('status')->switch('success');
+            $grid->column('sort');
             $grid->column('start_time');
             $grid->column('end_time');
             $grid->column('created_at');
@@ -72,6 +73,7 @@ class ActivityController extends AdminController
             $form->image('image')->autoUpload()->uniqueName()->required();;
             $form->switch('status')->default(1)->required();
             $form->text('href')->rules('url')->required();
+            $form->text('sort')->default(0);
             $form->datetime('start_time')->required();
             $form->datetime('end_time')->required();
 

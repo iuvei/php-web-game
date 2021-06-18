@@ -80,10 +80,11 @@ class GameController extends AdminController
             $form->select('status')->options([1 => '开启', 0 => '关闭'])->default(1)->required();
             $form->select('is_recommend')->options([1 => '是', 0 => '否'])->default(0)->required();
             $form->text('sort');
-            Cache::forget('getHotGame');
-            Cache::forget('getGameClass');
             $form->display('created_at');
             $form->display('updated_at');
+            $form->saving(function (){
+                Cache::forget('getHotGame');
+            });
         });
     }
 }

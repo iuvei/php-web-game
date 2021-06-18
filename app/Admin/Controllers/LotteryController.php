@@ -42,7 +42,7 @@ class LotteryController extends AdminController
 
                     return "<div style='padding:10px 10px 0'>$card</div>";
                 });
-
+            $grid->column('sort');
             $grid->column('expect_time');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
@@ -112,6 +112,7 @@ class LotteryController extends AdminController
                 5 => '5分钟一期',
             ])->placeholder('请选择开奖时间');
             Cache::forget('getHotGame');
+            $form->text('sort');
             $form->display('created_at');
             $form->display('updated_at');
             $form->footer(function ($footer) {

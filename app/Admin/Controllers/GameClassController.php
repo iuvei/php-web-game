@@ -7,6 +7,7 @@ use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
 use Dcat\Admin\Http\Controllers\AdminController;
+use Illuminate\Support\Facades\Cache;
 
 class GameClassController extends AdminController
 {
@@ -23,6 +24,7 @@ class GameClassController extends AdminController
             $grid->column('image')->image('',50, 50);
             $grid->column('code');
             $grid->column('status')->using([1 => '开启', 2 => '关闭'])->label([1 => 'success', 2 => 'danger']);
+            $grid->column('sort');
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
 
@@ -59,15 +61,19 @@ class GameClassController extends AdminController
      */
     protected function form()
     {
+
         return Form::make(new GameClass(), function (Form $form) {
             $form->display('id');
             $form->text('title')->required();
             $form->image('image')->uniqueName()->autoUpload()->required();
             $form->text('code')->required();
             $form->select('status')->options([1 => '开启', 2 => '关闭'])->default(1)->required();
-
+            $form->text('sort')->default(0);
             $form->display('created_at');
             $form->display('updated_at');
+            $form->saving(function (){
+                Cache::forget('getGameClass');
+            });
         });
     }
 }

@@ -66,7 +66,7 @@ class HomeController extends Controller
      */
     public function getVideoClass()
     {
-        $list = VideoClass::Status()->simplePaginate(15);
+        $list = VideoClass::Status()->orderBy('sort', 'desc')->simplePaginate(15);
         return VideoClassResource::collection($list)->additional(['code' => 0, 'message' => 'ok']);
     }
 
@@ -89,7 +89,7 @@ class HomeController extends Controller
     public function getGameClass()
     {
         $game_class = Cache::rememberForever('getGameClass', function (){
-            return GameClass::Status()->get()->toArray();
+            return GameClass::Status()->orderBy('sort', 'desc')->get();
         });
         return GameClassResource::collection($game_class)->additional(['code' => 0, 'message' => 'ok']);
     }
@@ -103,7 +103,7 @@ class HomeController extends Controller
     {
         $class_id = $request->input('game_class_id',7);
         $limit = $request->input('limit',15);
-        $game = Game::Status()->ClassId($class_id)->simplePaginate($limit);
+        $game = Game::Status()->ClassId($class_id)->orderBy('sort', 'desc')->simplePaginate($limit);
         return GameResource::collection($game)->additional(['code' => 0, 'message' => 'ok']);
     }
 
@@ -116,7 +116,7 @@ class HomeController extends Controller
     {
         $class_id = $request->input('activity_class_id',1);
         $limit = $request->input('limit',15);
-        $activity = Activity::Status()->ClassId($class_id)->simplePaginate($limit);
+        $activity = Activity::Status()->ClassId($class_id)->orderBy('id', 'desc')->simplePaginate($limit);
         return ActivityResource::collection($activity)->additional(['code' => 0, 'message' => 'ok']);
     }
 

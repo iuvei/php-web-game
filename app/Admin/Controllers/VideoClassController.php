@@ -23,6 +23,7 @@ class VideoClassController extends AdminController
             $grid->column('image')->image('',50,50);
             $grid->column('image_s')->image('',50,50);
             $grid->column('status')->using([1=>'开启', 2=>'关闭'])->label([1 => 'success', 2 => 'danger']);
+            $grid->column('sort')->editable();
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
 
@@ -66,7 +67,7 @@ class VideoClassController extends AdminController
             $form->image('image')->uniqueName()->required()->autoUpload();
             $form->image('image_s')->uniqueName()->required()->autoUpload();
             $form->select('status')->options([1=>'开启', 2 => '关闭'])->required()->default(1);
-
+            $form->text('sort');
             $form->display('created_at');
             $form->display('updated_at');
         });
