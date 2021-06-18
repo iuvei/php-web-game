@@ -8,6 +8,7 @@ use Dcat\Admin\Form;
 use Dcat\Admin\Grid;
 use Dcat\Admin\Show;
 use Dcat\Admin\Http\Controllers\AdminController;
+use Dcat\Admin\Widgets\Card;
 
 class LiveController extends AdminController
 {
@@ -18,19 +19,21 @@ class LiveController extends AdminController
      */
     protected function grid()
     {
-        return Grid::make(new Live(), function (Grid $grid) {
+        return Grid::make(new Live(['lottery']), function (Grid $grid) {
             $grid->column('id')->sortable();
             $grid->column('user_id');
-            $grid->column('is_video');
+            $grid->column('is_video')->using([1 => '是', 0 => '否'])->label([1 => 'success', 0 => 'blue']);
             $grid->column('stream');
-            $grid->column('image');
-            $grid->column('pull');
-            $grid->column('type');
+            $grid->column('image')->image('', 100,100);
+            $grid->column('pull')->display('查看')->modal(function(){
+                return new Card('', $this->pull);
+            });
+            $grid->column('type')->using([1 => '默认', 2=>'密码', 3 => '付费']);
             $grid->column('type_val');
-            $grid->column('is_hot');
+            $grid->column('is_hot')->using([ 1 => '是', 0 => '否'])->label();
             $grid->column('is_recommend');
             $grid->column('dev');
-            $grid->column('lottery_id');
+            $grid->column('lottery.title','彩票')->label();
             $grid->column('created_at');
             $grid->column('updated_at')->sortable();
 
@@ -92,7 +95,6 @@ class LiveController extends AdminController
             $form->select('is_hot')->options([1 => '是', 2 => '否'])->default(2);
             $form->select('is_recommend')->options([1 => '是', 2 => '否'])->default(2);
             $form->text('dev');
-
 
             $form->display('created_at');
             $form->display('updated_at');
