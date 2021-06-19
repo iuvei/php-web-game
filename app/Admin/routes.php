@@ -31,4 +31,6 @@ Route::group([
     $router->resource('banner', 'BannerController');
     $router->resource('activity', 'ActivityController');
     $router->resource('gift', 'GiftController');
+    $router->resource('vip_user', 'VipUserController');
+    $router->resource('vip', 'VipController');
 });

@@ -177,7 +177,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         Mavinoo\Batch\BatchServiceProvider::class,
         Hhxsv5\LaravelS\Illuminate\LaravelSServiceProvider::class,
-        
+        Earnp\GoogleAuthenticator\GoogleAuthenticatorServiceprovider::class,
+        SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
+
 
     ],
 
@@ -232,6 +234,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Batch' => Mavinoo\Batch\BatchFacade::class,
+        'Google' => Earnp\GoogleAuthenticator\Facades\GoogleAuthenticator::class,
+        'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class
 
     ],
 
