@@ -9,6 +9,7 @@
         "dcat/easy-excel": "^1.0",
         "dcat/laravel-admin": "2.*",
         "doctrine/dbal": "^3.1",
+        "earnp/laravel-google-authenticator": "dev-master",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -21,6 +22,7 @@
         "overtrue/laravel-lang": "~5.0",
         "predis/predis": "^1.1",
         "rennokki/laravel-eloquent-query-cache": "^2.6",
+        "simplesoftwareio/simple-qrcode": "1.3.*",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {
